@@ -8,9 +8,9 @@ GameField.Values = {
 
 GameField.GameField = function() {
     this.field = [];
-    this.field[0] = [ GameField.EMPTY, GameField.EMPTY, GameField.EMPTY];
-    this.field[1] = [ GameField.EMPTY, GameField.EMPTY, GameField.EMPTY];
-    this.field[2] = [ GameField.EMPTY, GameField.EMPTY, GameField.EMPTY];
+    this.field[0] = [ GameField.Values.EMPTY, GameField.Values.EMPTY, GameField.Values.EMPTY];
+    this.field[1] = [ GameField.Values.EMPTY, GameField.Values.EMPTY, GameField.Values.EMPTY];
+    this.field[2] = [ GameField.Values.EMPTY, GameField.Values.EMPTY, GameField.Values.EMPTY];
 }
 
 
