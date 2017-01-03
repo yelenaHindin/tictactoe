@@ -67,10 +67,17 @@ rl.on('line', function(line) {
     case 'O':
         gameField.set(GameField.Values.O, x, y);
         break;
+    case 'C':
+        gameField = new GameField.GameField();
+        break;
     default:
         console.log("Unknown command");
         break;
     }
     printField(gameField);
+    var winner = gameField.gameOver();
+    if (winner !== undefined) {
+        console.log(winner.toString(), " won");
+    }
     rl.prompt();
 });
