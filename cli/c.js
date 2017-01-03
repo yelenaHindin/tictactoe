@@ -8,7 +8,7 @@ function printField(field)
 {
     for (var y = 0; y < 3; y++) {
         for (var x = 0; x < 3; x++) {
-            switch (field.get(y, x)) {
+            switch (field.get(x, y)) {
             case GameField.Values.EMPTY:
                 process.stdout.write('.');
                 break;
@@ -59,13 +59,25 @@ rl.on('line', function(line) {
     var x = parseInt(splitInput[1]);
     var y = parseInt(splitInput[2]);
 
+    var winner = undefined;
 
     switch (splitInput[0]) {
-    case 'X':
-        gameField.set(GameField.Values.X, x, y);
-        break;
     case 'O':
         gameField.set(GameField.Values.O, x, y);
+        winner = gameField.gameOver();
+        if (winner !== undefined) {
+            console.log(winner.toString(), " won");
+            gameField = new GameField.GameField();
+            break;
+        }
+        var step = gameField.computeStep();
+        gameField.set(GameField.Values.X, step[0], step[1]);
+        winner = gameField.gameOver();
+        if (winner !== undefined) {
+            console.log(winner.toString(), " won");
+            gameField = new GameField.GameField();
+            break;
+        }
         break;
     case 'C':
         gameField = new GameField.GameField();
@@ -75,9 +87,5 @@ rl.on('line', function(line) {
         break;
     }
     printField(gameField);
-    var winner = gameField.gameOver();
-    if (winner !== undefined) {
-        console.log(winner.toString(), " won");
-    }
     rl.prompt();
 });
