@@ -13,6 +13,19 @@ GameField.GameField = function() {
     this.field[2] = [ GameField.Values.EMPTY, GameField.Values.EMPTY, GameField.Values.EMPTY];
 }
 
+GameField.GameField.prototype.copy = function()
+{
+    var cp = new GameField.GameField();
+
+    for (var y = 0; y < 3; y++) {
+        for (var x = 0; x < 3; x++) {
+            cp.field[y][x] = this.field[y][x];
+        }
+    }
+
+    return cp;
+}
+
 
 GameField.GameField.prototype.set = function(v, x, y) {
     this.field[y][x] = v;
@@ -24,6 +37,20 @@ GameField.GameField.prototype.get = function(x, y) {
 
 
 GameField.GameField.prototype.gameOver = function() {
+    var fieldIsFull = true;
+
+    for (var y = 0; y < 3; y++) {
+        for (var x = 0; x < 3; x++) {
+            if (this.field[y][x] == GameField.Values.EMPTY) {
+                fieldIsFull = false;
+            }
+        }
+    }
+
+    if (fieldIsFull) {
+        return GameField.Values.EMPTY;
+    }
+
     for (var y = 0; y < 3; y++) {
         if (this.field[y][0] != GameField.Values.EMPTY &&
             this.field[y][0] == this.field[y][1] &&
@@ -58,8 +85,45 @@ GameField.GameField.prototype.gameOver = function() {
 
 GameField.GameField.prototype.computeStep = function() {
 
+    if (this.field[1][1] == GameField.Values.EMPTY)
+        return [1, 1];
+
+    var copy = this.copy();
 
 
+    for (var y = 0; y < 3; y++) {
+        for (var x = 0; x < 3; x++) {
+            if (copy.get(x, y) == GameField.Values.EMPTY) {
+                copy.set(GameField.Values.X, x, y);
+                if (copy.gameOver()) {
+                    return [x, y];
+                    }
+                copy = this.copy();
+            }
+        }
+    }
+
+    for (var y = 0; y < 3; y++) {
+        for (var x = 0; x < 3; x++) {
+            if (copy.get(x, y) == GameField.Values.EMPTY) {
+                copy.set(GameField.Values.O, x, y);
+                if (copy.gameOver()) {
+                    return [x, y];
+                }
+                copy = this.copy();
+            }
+        }
+    }
+
+    for (var y = 0; y < 3; y++) {
+        for (var x = 0; x < 3; x++) {
+            if (this.get(x, y) == GameField.Values.EMPTY) {
+                return [x, y];
+            }
+        }
+    }
+
+    throw new Error("Should not get here");
 }
 
 if (process) {
