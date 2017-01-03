@@ -1,0 +1,25 @@
+{
+  "name": "tictactoe_tests",
+  "version": "1.0.0",
+  "description": "TicTacToe tests",
+  "main": "t1.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yelenaHindin/tictactoe.git"
+  },
+  "keywords": [
+    "games"
+  ],
+  "author": "Yelena Hindin",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/yelenaHindin/tictactoe/issues"
+  },
+  "homepage": "https://github.com/yelenaHindin/tictactoe#readme",
+  "dependencies": {
+    "should": "^11.1.2"
+  }
+}
