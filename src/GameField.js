@@ -11,6 +11,8 @@ GameField.GameField = function() {
     this.field[0] = [ GameField.Values.EMPTY, GameField.Values.EMPTY, GameField.Values.EMPTY];
     this.field[1] = [ GameField.Values.EMPTY, GameField.Values.EMPTY, GameField.Values.EMPTY];
     this.field[2] = [ GameField.Values.EMPTY, GameField.Values.EMPTY, GameField.Values.EMPTY];
+
+    this.listeners = [];
 }
 
 GameField.GameField.prototype.copy = function()
@@ -29,6 +31,8 @@ GameField.GameField.prototype.copy = function()
 
 GameField.GameField.prototype.set = function(v, x, y) {
     this.field[y][x] = v;
+
+    this.listeners.forEach(e => e.listener.call(e.thisArg, v, x, y));
 }
 
 GameField.GameField.prototype.get = function(x, y) {
@@ -125,6 +129,12 @@ GameField.GameField.prototype.computeStep = function() {
 
     throw new Error("Should not get here");
 }
+
+
+GameField.GameField.prototype.addListener = function(l, thisArg) {
+    this.listeners.push({listener: l, thisArg: thisArg});
+}
+
 
 if (process) {
     module.exports = GameField;
