@@ -136,6 +136,6 @@ GameField.GameField.prototype.addListener = function(l, thisArg) {
 }
 
 
-if (process) {
+if (typeof process !== 'undefined' && process) {
     module.exports = GameField;
 }
