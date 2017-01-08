@@ -28,6 +28,13 @@ GameField.GameField.prototype.copy = function()
     return cp;
 }
 
+GameField.GameField.prototype.clearField = function(){
+    for (var y = 0; y < 3; y++) {
+        for (var x = 0; x < 3; x++) {
+            this.set(GameField.Values.EMPTY, x, y);
+        }
+    }
+}
 
 GameField.GameField.prototype.set = function(v, x, y) {
     this.field[y][x] = v;
