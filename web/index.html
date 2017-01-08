@@ -3,59 +3,11 @@
   <head>
     <script src="../src/GameField.js"></script>
     <link rel="stylesheet" href="gridField.css"></link>
-    <script>
-      var gameField = new GameField.GameField();
-
-      window.onload = function()  {
-        gameField.addListener(function(v, x, y) {
-           var cellId = "cell" + x + y;
-           var cell = document.getElementById(cellId);
-           switch (v) {
-           case GameField.Values.EMPTY:
-              cell.innerHTML = ' ';
-              break;
-           case GameField.Values.X:
-              cell.innerHTML = 'X';
-              break;
-           case GameField.Values.O:
-              cell.innerHTML = 'O';
-              break;
-           }
-        }, this);
-
-
-        field.addEventListener("click", function(evt) {
-          var cellId = evt.srcElement.id;
-          var x = parseInt(cellId[4]);
-          var y = parseInt(cellId[5]);
-          console.log("x = ", x, "y = ", y);
-
-          if (gameField.get(x, y) == GameField.Values.EMPTY) {
-            gameField.set(GameField.Values.O, x, y);
-            winner = gameField.gameOver();
-            if (winner !== undefined) {
-               alert(winner.toString(), " won");
-               gameField = new GameField.GameField();
-               return;
-            }
-
-            var step = gameField.computeStep();
-            gameField.set(GameField.Values.X, step[0], step[1]);
-            winner = gameField.gameOver();
-            if (winner !== undefined) {
-               alert(winner.toString(), " won");
-               gameField = new GameField.GameField();
-               return;
-            }
-          }
-        });
-      }
-
-    </script>
+    <script src="script.js"></script>
   </head>
 
   <body>
-    <h1>Hello, world!</h1>
+    <h1 id="gameAlerts" class="gameAlerts"></h1>
 
 
     <table id="field">
